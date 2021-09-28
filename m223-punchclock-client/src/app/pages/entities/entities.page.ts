@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Entry} from "../../model/Entry";
 import {ActivatedRoute} from "@angular/router";
 import {EntryService} from "../../request/entry.service";
-import {Kategorie} from "../../model/Kategorie";
 
 @Component({
   selector: 'app-entities',
@@ -34,11 +33,6 @@ export class EntitiesPage implements OnInit {
         console.log(error)
       }
     )
-  }
-
-  public filters(): Array<string> {
-    const keys = Object.keys(Kategorie);
-    return keys;
   }
 
 }

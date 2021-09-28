@@ -1,4 +1,3 @@
-import {Kategorie} from "../model/Kategorie";
 import {Entry} from "../model/Entry";
 import {Observable} from "rxjs";
 
