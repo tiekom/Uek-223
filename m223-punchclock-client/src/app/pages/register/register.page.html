@@ -1,0 +1,28 @@
+<div id="register">
+  <ion-card style="margin: 0">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Registrieren</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+        <ion-item>
+          <ion-label position="floating">Benutzername</ion-label>
+          <ion-input formControlName="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [type]="showPassword?'text':'password'" formControlName="password"></ion-input>
+          <ion-icon slot="end" color="medium" [name]="showPassword?'eye':'eye-off'"
+                    (click)="togglePasswordText()"></ion-icon>
+        </ion-item>
+        <ion-button [disabled]="!registerForm.valid" type="submit" expand="block">Registrieren</ion-button>
+      </form>
+      <div class="ion-text-center ion-margin-top">
+        <ion-text>oder</ion-text>
+      </div>
+      <div class="ion-text-center ion-margin-top">
+        <a [routerLink]="['/login']">Bereits ein Mitglied?</a>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>
