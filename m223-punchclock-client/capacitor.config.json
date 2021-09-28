@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "m223-punchclock-client",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

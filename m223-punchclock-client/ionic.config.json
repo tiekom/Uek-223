@@ -1,0 +1,7 @@
+{
+  "name": "m223-punchclock-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
