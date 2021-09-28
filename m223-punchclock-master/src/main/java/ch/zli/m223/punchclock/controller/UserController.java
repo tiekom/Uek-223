@@ -34,11 +34,6 @@ public class UserController {
         return null;
     }
 
-    @PostMapping("/sign-in")
-    public void signIn(@RequestBody ApplicationUser user) {
-        this.userDetailsService.loadUserByUsername(user.getUsername());
-    }
-
     @GetMapping
     public List<ApplicationUser> getUsers() {
         return applicationUserRepository.findAll();

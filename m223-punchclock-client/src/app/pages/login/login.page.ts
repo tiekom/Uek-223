@@ -28,6 +28,7 @@ export class LoginPage implements OnInit {
   }
 
   public onSubmit() {
+    this.authService.login(this.loginForm);
   }
 
   togglePasswordText() {

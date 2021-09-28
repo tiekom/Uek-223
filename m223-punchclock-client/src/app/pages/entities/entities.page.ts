@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {Kategorie} from "../model/Kategorie";
-import {EntryService} from "../request/entry.service";
-import {Entry} from "../model/Entry";
+import {Entry} from "../../model/Entry";
+import {ActivatedRoute} from "@angular/router";
+import {EntryService} from "../../request/entry.service";
+import {Kategorie} from "../../model/Kategorie";
 
 @Component({
-  selector: 'app-folder',
-  templateUrl: './folder.page.html',
-  styleUrls: ['./folder.page.scss'],
+  selector: 'app-entities',
+  templateUrl: './entities.page.html',
+  styleUrls: ['./entities.page.scss'],
 })
-export class FolderPage implements OnInit {
+export class EntitiesPage implements OnInit {
   public folder: string;
   public entries: Array<Entry>;
 
@@ -42,3 +42,4 @@ export class FolderPage implements OnInit {
   }
 
 }
+
