@@ -18,7 +18,6 @@ export class PlaceService {
   }
 
   create(formData: FormGroup): void {
-    console.log("ok")
     this.http.post(this.url, formData.value, {headers: this.authService.getHeader()});
   }
 

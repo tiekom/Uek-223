@@ -14,9 +14,8 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="application_user_id", referencedColumnName = "id")
-    private ApplicationUser applicationUser;
+    @Column(name = "application_user_id")
+    private Long applicationUserId;
     @Column(name = "e_icon")
     private EIcon eIcon;
     @Column(name="name")
