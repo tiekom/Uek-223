@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {Entry} from "../../model/Entry";
 import {ActivatedRoute} from "@angular/router";
 import {EntryService} from "../../request/entry.service";
@@ -8,16 +8,17 @@ import {EntryService} from "../../request/entry.service";
   templateUrl: './entities.page.html',
   styleUrls: ['./entities.page.scss'],
 })
+
 export class EntitiesPage implements OnInit {
   public folder: string;
   public entries: Array<Entry>;
 
   constructor(private activatedRoute: ActivatedRoute, private entryService: EntryService) {
-    this.loadEntries();
   }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
+    this.loadEntries();
   }
 
   deleteEntry(id: number): void{

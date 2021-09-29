@@ -3,6 +3,7 @@ package ch.zli.m223.punchclock.security;
 import ch.zli.m223.punchclock.domain.ApplicationUser;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ import static ch.zli.m223.punchclock.security.SecurityConstants.SECRET;
 import static ch.zli.m223.punchclock.security.SecurityConstants.TOKEN_PREFIX;
 import static ch.zli.m223.punchclock.security.SecurityConstants.EXPIRATION_TIME;
 
+@Log4j2
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -34,12 +36,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             ApplicationUser creds = new ObjectMapper()
                     .readValue(req.getInputStream(), ApplicationUser.class);
-            return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            creds.getUsername(),
-                            creds.getPassword(),
-                            new ArrayList<>())
-            );
+            System.out.println(creds.getUsername());
+            log.info("User with name:" + creds.getUsername() + " wants to sign in");
+            if(creds.isActive()) {
+                return authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                creds.getUsername(),
+                                creds.getPassword(),
+                                new ArrayList<>())
+                );
+            }else{
+                throw new RuntimeException(creds.getUsername() + " deactivated");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

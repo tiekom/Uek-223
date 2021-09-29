@@ -1,12 +1,12 @@
-import {Kategorie} from "./Kategorie";
+import {Category} from "./Category";
 
 export class Entry {
   private _id: number;
   private _checkIn: Date;
   private _checkOut: Date;
-  private _kategorie: Kategorie;
+  private _kategorie: Category;
 
-  constructor(id: number, checkIn: Date, checkOut: Date, kategorie: Kategorie) {
+  constructor(id: number, checkIn: Date, checkOut: Date, kategorie: Category) {
     this._id = id;
     this._checkIn = checkIn;
     this._checkOut = checkOut;
@@ -37,11 +37,11 @@ export class Entry {
     this._checkOut = value;
   }
 
-  get kategorie(): Kategorie {
+  get kategorie(): Category {
     return this._kategorie;
   }
 
-  set kategorie(value: Kategorie) {
+  set kategorie(value: Category) {
     this._kategorie = value;
   }
 }

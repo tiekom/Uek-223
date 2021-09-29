@@ -1,12 +1,13 @@
 package ch.zli.m223.punchclock.service;
 
+import ch.zli.m223.punchclock.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryService {
-    private CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
-    public CategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 }

@@ -28,6 +28,7 @@ export class LoginPage implements OnInit {
   }
 
   public onSubmit() {
+    console.log(this.loginForm.value)
     this.authService.login(this.loginForm);
   }
 

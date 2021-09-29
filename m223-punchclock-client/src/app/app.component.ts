@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {TokenService} from "./services/token.service";
+import {AuthService} from "./request/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -16,15 +17,10 @@ export class AppComponent implements OnInit {
     {title: 'Einstellungen', url: '/settings', icon: 'settings'},
   ];
 
-  constructor(public router: Router, public tokenService: TokenService) {
+  constructor(public router: Router, public tokenService: TokenService, public authService: AuthService) {
   }
 
 
   ngOnInit(): void {
-  }
-
-  signOut(): void {
-    this.tokenService.deleteTokenWithKey('token');
-    this.router.navigate(['login']);
   }
 }

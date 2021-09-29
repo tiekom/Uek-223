@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static java.util.Collections.emptyList;
@@ -22,13 +23,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<ApplicationUser> foundApplicationUser = this.applicationUserRepository.findByUsername(username);
-        ApplicationUser applicationUser;
-        if (foundApplicationUser.isEmpty()) {
+        ApplicationUser applicationUser = applicationUserRepository.findByUsername(username);
+        if (applicationUser == null) {
             throw new UsernameNotFoundException(username);
-        }else{
-            applicationUser = foundApplicationUser.get();
         }
-        return new User(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
+        return new User(applicationUser.getUsername(), applicationUser.getPassword(), new ArrayList<>());
     }
 }

@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Kategorie} from "../model/Kategorie";
 import {EntryInterface} from "../interface/EntryInterface";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Entry} from "../model/Entry";
 import {Observable} from "rxjs";
+import {AuthService} from "./auth.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EntryService implements EntryInterface {
 
@@ -15,12 +15,12 @@ export class EntryService implements EntryInterface {
 
   entries: Observable<Array<Entry>>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     this.url = environment.backendUrl + "/entries"
   }
 
   create(entry: Entry): Observable<any> {
-    return this.http.post(this.url, entry);
+    return this.http.post(this.url,  {headers: this.authService.getHeader(),entry});
   }
 
   deleteById(id: number): Observable<any> {
@@ -28,7 +28,7 @@ export class EntryService implements EntryInterface {
   }
 
   getAll(): Observable<Array<Entry>> {
-    return this.http.get<Array<Entry>>(this.url);
+    return this.http.get<Array<Entry>>(this.url, {headers: this.authService.getHeader()});
   }
 
   getById(id: number): boolean {
@@ -38,6 +38,4 @@ export class EntryService implements EntryInterface {
   update(id: number, entry: Entry): Observable<any> {
     return this.http.put(this.url + "/" + id, entry);
   }
-
-
 }

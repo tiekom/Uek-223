@@ -12,7 +12,7 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
             </ng-container>
-            <ion-item (click)="signOut()">
+            <ion-item button="true" routerDirection="root" lines="none" detail="false" routerLinkActive="selected"(click)="authService.signOut()">
               <ion-icon slot="start" [ios]="'exit-outline'" [md]="'exit-sharp'"></ion-icon>
               <ion-label>Ausloggen</ion-label>
             </ion-item>

@@ -15,6 +15,6 @@ import { EntitiesPage } from './entities.page';
     IonicModule,
     EntitiesPageRoutingModule
   ],
-  declarations: [EntitiesPage]
+  declarations: [EntitiesPage],
 })
 export class EntitiesPageModule {}

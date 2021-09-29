@@ -18,12 +18,12 @@ public class EntryService {
         return entryRepository.saveAndFlush(entry);
     }
 
-    public List<Entry> findAll() {
-        return entryRepository.findAll();
+    public List<Entry> findAllByApplicationUserId(Long id) {
+        return entryRepository.findAllByApplicationUserId(id);
     }
 
-    public void deleteEntry(Long id){
-        entryRepository.deleteById(id);
+    public void deleteByIdAndApplicationUserId(Long id, Long userId){
+        entryRepository.deleteByIdAndApplicationUserId(id, userId);
     }
 
     public void updateEntry(Entry entry){

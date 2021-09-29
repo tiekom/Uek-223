@@ -1,42 +1,54 @@
 package ch.zli.m223.punchclock.controller;
 
+import ch.zli.m223.punchclock.domain.ApplicationUser;
 import ch.zli.m223.punchclock.domain.Entry;
+import ch.zli.m223.punchclock.repository.ApplicationUserRepository;
 import ch.zli.m223.punchclock.service.EntryService;
+import ch.zli.m223.punchclock.service.UserDetailsService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/entries")
 public class EntryController {
-    private EntryService entryService;
+    private final EntryService entryService;
+    private final UserDetailsService userDetailsService;
 
-    public EntryController(EntryService entryService) {
+    public EntryController(EntryService entryService, UserDetailsService userDetailsService) {
         this.entryService = entryService;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Entry> getAllEntries() {
-        return entryService.findAll();
+    public List<Entry> getAllEntries(Authentication authentication) {
+        ApplicationUser applicationUser = this.userDetailsService.findByUsername(authentication.getName());
+
+        return entryService.findAllByApplicationUserId(applicationUser.getId());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Entry createEntry(@Valid @RequestBody Entry entry) {
+    public Entry createEntry(@Valid @RequestBody Entry entry, Authentication authentication) {
         return entryService.createEntry(entry);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEntry(@PathVariable Long id){
-        entryService.deleteEntry(id);
+    public void deleteEntry(@PathVariable Long id, Authentication authentication) {
+        ApplicationUser applicationUser = this.userDetailsService.findByUsername(authentication.getName());
+        entryService.deleteByIdAndApplicationUserId(id, applicationUser.getId());
     }
 
-    @PutMapping("/{id}")
-    public void updateEntry(@PathVariable Long id, @RequestBody Entry entry){
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void updateEntry(@RequestBody Entry entry) {
         entryService.updateEntry(entry);
     }
 }

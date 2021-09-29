@@ -1,6 +1,7 @@
 package ch.zli.m223.punchclock.service;
 
 import ch.zli.m223.punchclock.domain.ApplicationUser;
+import ch.zli.m223.punchclock.repository.ApplicationUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -8,19 +9,30 @@ import java.util.Optional;
 @Service
 public class UserDetailsService {
 
-    public Optional<ApplicationUser> findByUsername(String username) {
-        return Optional.empty();
+    private final ApplicationUserRepository applicationUserRepository;
+
+    public UserDetailsService(ApplicationUserRepository applicationUserRepository) {
+        this.applicationUserRepository = applicationUserRepository;
+    }
+
+    public ApplicationUser findByUsername(String username) {
+        return applicationUserRepository.findByUsername(username);
     }
 
     public Optional<ApplicationUser> findById(Long id) {
-        return Optional.empty();
+        return applicationUserRepository.findById(id);
     }
 
-    public Boolean existsByUsername(String username) {
-        return null;
+    public void existsByUsername(String username) {
+        applicationUserRepository.existsByUsername(username);
     }
 
-    public Boolean existsByEmail(String email) {
-        return null;
+    public void ApplicationUser (ApplicationUser applicationUser){
+        applicationUserRepository.save(applicationUser);
     }
+
+    public void deleteById(Long id){
+        applicationUserRepository.deleteById(id);
+    }
+
 }

@@ -20,9 +20,12 @@ public class ApplicationUser {
     private String password;
     @Column(name = "e_role")
     private ERole eRole;
+    @Column(name = "active")
+    private boolean active;
 
     public ApplicationUser(String username, String password) {
         this.username = username;
         this.password = password;
+        this.active = true;
     }
 }
