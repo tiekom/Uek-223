@@ -40,9 +40,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             ApplicationUser creds = new ObjectMapper()
                     .readValue(req.getInputStream(), ApplicationUser.class);
-            System.out.println(creds.getUsername());
             log.info("User with name:" + creds.getUsername() + " wants to sign in");
-            if (creds.isActive()) {
+            if (!creds.isActive()) {
                 return authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
                                 creds.getUsername(),

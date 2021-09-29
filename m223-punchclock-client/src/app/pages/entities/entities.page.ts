@@ -2,6 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {Entry} from "../../model/Entry";
 import {ActivatedRoute} from "@angular/router";
 import {EntryService} from "../../request/entry.service";
+import {SnackbarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-entities',
@@ -13,7 +14,7 @@ export class EntitiesPage implements OnInit {
   public folder: string;
   public entries: Array<Entry>;
 
-  constructor(private activatedRoute: ActivatedRoute, private entryService: EntryService) {
+  constructor(private activatedRoute: ActivatedRoute, private entryService: EntryService, private snackbarService: SnackbarService) {
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class EntitiesPage implements OnInit {
         this.entries = entries;
       },
       error => {
-        console.log(error)
+        this.snackbarService.presentToast("😬 Zeiten können nicht geladen werden", "danger")
       }
     )
   }
