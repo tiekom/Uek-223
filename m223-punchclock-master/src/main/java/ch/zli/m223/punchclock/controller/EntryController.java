@@ -36,19 +36,24 @@ public class EntryController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Entry createEntry(@Valid @RequestBody Entry entry, Authentication authentication) {
-        return entryService.createEntry(entry);
+        return entryService.create(entry);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEntry(@PathVariable Long id, Authentication authentication) {
         ApplicationUser applicationUser = this.userDetailsService.findByUsername(authentication.getName());
-        entryService.deleteByIdAndApplicationUserId(id, applicationUser.getId());
+        if (entryService.existsByIdAndApplicationUserId(id, applicationUser.getId())) {
+            entryService.deleteByIdAndApplicationUserId(id, applicationUser.getId());
+        }
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateEntry(@RequestBody Entry entry) {
-        entryService.updateEntry(entry);
+    public void updateEntry(@RequestBody Entry entry, @PathVariable Long id, Authentication authentication) {
+        ApplicationUser applicationUser = this.userDetailsService.findByUsername(authentication.getName());
+        if (entryService.existsByIdAndApplicationUserId(id, applicationUser.getId())) {
+            entryService.update(entry);
+        }
     }
 }

@@ -27,11 +27,11 @@ public class UserDetailsService {
         applicationUserRepository.existsByUsername(username);
     }
 
-    public void ApplicationUser (ApplicationUser applicationUser){
+    public void ApplicationUser(ApplicationUser applicationUser) {
         applicationUserRepository.save(applicationUser);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         applicationUserRepository.deleteById(id);
     }
 

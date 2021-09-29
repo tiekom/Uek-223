@@ -14,7 +14,7 @@ public class EntryService {
         this.entryRepository = entryRepository;
     }
 
-    public Entry createEntry(Entry entry) {
+    public Entry create(Entry entry) {
         return entryRepository.saveAndFlush(entry);
     }
 
@@ -26,7 +26,11 @@ public class EntryService {
         entryRepository.deleteByIdAndApplicationUserId(id, userId);
     }
 
-    public void updateEntry(Entry entry){
+    public boolean existsByIdAndApplicationUserId(Long id, Long userId){
+        return entryRepository.existsByIdAndApplicationUserId(id, userId);
+    }
+
+    public void update(Entry entry){
         entryRepository.save(entry);
     }
 }

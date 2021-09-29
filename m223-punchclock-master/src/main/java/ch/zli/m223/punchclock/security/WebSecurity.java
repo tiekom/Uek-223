@@ -61,7 +61,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.applyPermitDefaultValues();
-        for (String header:
+        for (String header :
                 headers) {
             corsConfiguration.addExposedHeader(header);
         }

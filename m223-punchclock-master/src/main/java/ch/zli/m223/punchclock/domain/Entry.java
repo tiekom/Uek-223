@@ -28,7 +28,7 @@ public class Entry {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="categorie_id", referencedColumnName = "id")
-    private Categories categories;
+    private Category category;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="place_id", referencedColumnName = "id")
