@@ -7,26 +7,66 @@
 <ion-content>
   <ion-grid>
     <ion-row>
+      <ion-col *ngIf="editing">
+        <ion-card>
+            <ion-card-header>
+              <ion-icon class="ion-float-left" size="medium" name="add"></ion-icon>
+              <ion-card-title class="ion-float-left">Ort erstellen</ion-card-title>
+              <br>
+            </ion-card-header>
+            <br>
+            <ion-card-content *ngIf="editing">
+              <form (ngSubmit)="onSubmitPlace()" [formGroup]="newPlace">
+                <ion-item>
+                  <ion-label position="floating">Name</ion-label>
+                  <ion-input formControlName="name"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Icon</ion-label>
+                  <ion-select formControlName="iIcon" value="alarm" okText="Auswählen" cancelText="Abbrechen">
+                    <ion-select-option *ngFor="let icon of eIcon | keyvalue" [value]="icon.key">{{icon.key}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-button [disabled]="!newPlace.valid" type="submit" expand="block">speichern</ion-button>
+              </form>
+            </ion-card-content>
+          </ion-card>
+      </ion-col>
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Benutzerdaten ändern</ion-card-title>
+            <ion-icon class="ion-float-left" size="medium" name="trash"></ion-icon>
+            <ion-card-title class="ion-float-left">Name</ion-card-title>
+            <br>
           </ion-card-header>
-          <form>
-            <ion-item>
-              <ion-label position="floating">Benutzername</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Passwort</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-button>
-              speichern
-            </ion-button>
-          </form>
+          <br>
+          <ion-card-content *ngIf="editing">
+            <form>
+              <ion-item>
+                <ion-label position="floating">Name</ion-label>
+                <ion-input></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Icon</ion-label>
+                <ion-select value="alarm" okText="Auswählen" cancelText="Abbrechen">
+                  <ion-select-option *ngFor="let icon of eIcon | keyvalue" [value]="icon.key">{{icon.key}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button color="danger">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+              <ion-button color="warning">
+                <ion-icon name="save"></ion-icon>
+              </ion-button>
+            </form>
+          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="toggleEditing()">
+      <ion-icon [name]="editing?'create':'create-outline'"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

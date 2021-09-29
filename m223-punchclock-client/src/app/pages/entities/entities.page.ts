@@ -13,8 +13,10 @@ import {SnackbarService} from "../../services/snackbar.service";
 export class EntitiesPage implements OnInit {
   public folder: string;
   public entries: Array<Entry>;
+  public editing: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private entryService: EntryService, private snackbarService: SnackbarService) {
+    this.editing = false;
   }
 
   ngOnInit() {
@@ -35,6 +37,10 @@ export class EntitiesPage implements OnInit {
         this.snackbarService.presentToast("😬 Zeiten können nicht geladen werden", "danger")
       }
     )
+  }
+
+  activateEditing(): void{
+    this.editing = !this.editing;
   }
 
 }
